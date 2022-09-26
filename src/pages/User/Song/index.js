@@ -18,7 +18,6 @@ function UserSong() {
 
         if (!!mySongs) {
             setMySongs(mySongs);
-            dispatch(musicOfPage(mySongs));
         }
     }, []);
 
@@ -41,7 +40,15 @@ function UserSong() {
                 </div>
                 <div className={cx('song-list')}>
                     {mySongs.map((song, index) => {
-                        return <MusicItem key={index} song={song} />;
+                        return (
+                            <MusicItem
+                                key={index}
+                                song={song}
+                                listMusicOfPage={() =>
+                                    dispatch(musicOfPage(mySongs))
+                                }
+                            />
+                        );
                     })}
                 </div>
             </div>

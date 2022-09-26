@@ -8,7 +8,7 @@ import Image from '../Image';
 import styles from './MusicItem.module.scss';
 const cx = classNames.bind(styles);
 
-function MusicItemUser({ className, song, number, ranking }) {
+function MusicItemUser({ className, song, number, ranking, listMusicOfPage }) {
     const formatTime = (time) => {
         if (time < 10) {
             return `0${time}`;
@@ -75,6 +75,7 @@ function MusicItemUser({ className, song, number, ranking }) {
 
     const handlePlayMusic = (song) => {
         dispatch(playMusic(song));
+        console.log(listMusicOfPage());
     };
 
     return (

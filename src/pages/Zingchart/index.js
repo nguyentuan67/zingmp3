@@ -28,7 +28,6 @@ function Zingchart() {
                 .get(`https://apizingmp3.herokuapp.com/api/charthome`)
                 .then((res) => res.data.data);
             setMusic(data);
-            dispatch(musicOfPage(data.RTChart.items));
             setChartInfo(data.RTChart.chart);
         };
         fetchData();
@@ -53,7 +52,14 @@ function Zingchart() {
                 {music.RTChart ? (
                     music.RTChart.items.slice(0, visible).map((item, index) => (
                         <LazyLoadComponent key={index}>
-                            <MusicItem song={item} ranking number={index + 1} />
+                            <MusicItem
+                                song={item}
+                                ranking
+                                number={index + 1}
+                                listMusicOfPage={() =>
+                                    dispatch(musicOfPage(music.RTChart.items))
+                                }
+                            />
                         </LazyLoadComponent>
                     ))
                 ) : (

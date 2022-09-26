@@ -18,7 +18,6 @@ function Nhacmoi() {
             const data = await axios
                 .get(`https://apizingmp3.herokuapp.com/api/newreleasechart`)
                 .then((res) => res.data.data);
-            dispatch(musicOfPage(data.items));
             setMusic(data);
         };
         fetchData();
@@ -46,6 +45,9 @@ function Nhacmoi() {
                                     index={index}
                                     ranking
                                     number={index + 1}
+                                    listMusicOfPage={() =>
+                                        dispatch(musicOfPage(music.items))
+                                    }
                                 />
                             </LazyLoadComponent>
                         ))

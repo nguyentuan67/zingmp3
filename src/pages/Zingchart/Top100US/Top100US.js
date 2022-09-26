@@ -5,12 +5,14 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Loading from '../Loading/Loading';
 import MusicItem from '~/components/MusicItem';
 import styles from './Top100US.module.scss';
+import { musicOfPage } from '~/redux/actions';
+import { useDispatch } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
 const Top100US = () => {
     const [music, setMusic] = useState([]);
-
+    const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
             const data = await axios
@@ -29,11 +31,15 @@ const Top100US = () => {
                 music.weekChart.us.items.map((item, index) => (
                     <LazyLoadComponent key={index}>
                         <MusicItem
+                            song={item}
                             number={index + 1}
                             title={item.title}
                             name={item.album ? item.album.title : ''}
                             artistsNames={item.artistsNames}
                             thumbnail={item.thumbnail || item.thumbnailM}
+                            listMusicOfPage={() =>
+                                dispatch(musicOfPage(music.weekChart.us.items))
+                            }
                         />
                     </LazyLoadComponent>
                 ))
